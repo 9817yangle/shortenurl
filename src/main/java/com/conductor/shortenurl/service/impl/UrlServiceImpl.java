@@ -1,5 +1,6 @@
 package com.conductor.shortenurl.service.impl;
 
+import com.conductor.shortenurl.context.UserContextHolder;
 import com.conductor.shortenurl.entity.UrlMapping;
 import com.conductor.shortenurl.repository.UrlRepository;
 import com.conductor.shortenurl.service.UrlService;
@@ -14,24 +15,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlServiceImpl implements UrlService {
 
-  @Autowired
-  UrlRepository urlRepository;
+    @Autowired
+    UrlRepository urlRepository;
 
 
-  @Override
-  public String generateShortUrl(String longUrl) {
-    String shortUrl = HashUtil.murmurHashToBase62(longUrl);
-    urlRepository.saveUrlMapping(new UrlMapping(shortUrl, longUrl));
-    return shortUrl;
-  }
+    @Override
+    public String generateShortUrl(String longUrl) {
+        long hashCode = HashUtil.murmurHashStirng(longUrl);
+        UserContextHolder.holder.set(hashCode);
+        String shortUrl = HashUtil.convertDecToBase62(hashCode);
+        urlRepository.saveUrlMapping(new UrlMapping(shortUrl, longUrl));
+        return shortUrl;
+    }
 
-  @Override
-  public String generateShortUrl(String longUrl, long timeout, String timeUnit) {
-    return null;
-  }
+    @Override
+    public String generateShortUrl(String longUrl, long timeout, String timeUnit) {
+        return null;
+    }
 
-  @Override
-  public String getLongUrlByShortUrl(String shortUrl) {
-    return null;
-  }
+    @Override
+    public String getLongUrlByShortUrl(String shortUrl) {
+        return null;
+    }
 }
