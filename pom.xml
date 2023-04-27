@@ -37,11 +37,6 @@
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-redis</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
 
@@ -49,6 +44,18 @@
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>2.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson-spring-boot-starter</artifactId>
+      <version>3.17.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>2.3.3.RELEASE</version>
     </dependency>
 
     <!-- shardingsphere jdbc start -->

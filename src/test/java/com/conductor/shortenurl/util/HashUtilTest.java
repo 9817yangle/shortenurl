@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Test;
  */
 class HashUtilTest {
 
-    private static final String url = "https://dpubstatic.udache.com/static/dpubimg/d4c0e518e95afb4e669affa6eb15d1d6/index.html";
+  private static final String url = "https://dpubstatic.udache.com/static/dpubimg/d4c0e518e95afb4e669affa6eb15d1d6/index.html";
 
 
-    @Test
-    public void murmurHashToBase62() {
-        long hashCode = HashUtil.murmurHashStirng(url);
-        assertTrue("4KpMst".equals(HashUtil.convertDecToBase62(hashCode)));
-    }
+  @Test
+  public void murmurHashToBase62() {
+    long hashCode = HashUtil.murmurHashStirng(url);
+    assertTrue("4KpMst".equals(HashUtil.convertDecToBase62(hashCode)));
+    long value = 100L << 26;
+    System.out.println(value);
+  }
 }
