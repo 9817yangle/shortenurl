@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface UrlRepository {
 
   int saveUrlMapping(UrlMapping urlMapping);
+
+  String getLongUrlByShortUrl(String shortUrl);
 }

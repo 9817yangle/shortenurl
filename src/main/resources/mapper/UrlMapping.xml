@@ -9,4 +9,10 @@
     insert into url_mapping (short_url, long_url, expire_time)
     values (#{shortUrl}, #{longUrl}, #{expireTime})
   </insert>
+
+  <select id="getLongUrlByShortUrl" resultType="java.lang.String">
+    select long_url
+    from url_mapping
+    where short_url = #{shortUrl}
+  </select>
 </mapper>

@@ -1,6 +1,5 @@
 package com.conductor.shortenurl.strategy;
 
-import com.conductor.shortenurl.context.UserContextHolder;
 import com.conductor.shortenurl.util.ShardingUtil;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingAlgorithm;
 import org.apache.shardingsphere.api.sharding.standard.PreciseShardingValue;
@@ -11,7 +10,8 @@ import java.util.Collection;
  * @author enping
  * @date 2023/4/22 17:29 短链接分库路由策略
  **/
-public class UrlDBShardingAlgorithm implements PreciseShardingAlgorithm<String> {
+public class UrlDBShardingAlgorithm extends CustomShardingAlgorithm implements
+    PreciseShardingAlgorithm<String> {
 
   /**
    * @param databaseNames 数据源集合 在分库时值为所有分片库的集合 databaseNames ds0 - ds4
@@ -22,16 +22,13 @@ public class UrlDBShardingAlgorithm implements PreciseShardingAlgorithm<String> 
 
   public String doSharding(Collection<String> databaseNames,
       PreciseShardingValue<String> preciseShardingValue) {
-    long hashCode = UserContextHolder.hashCodeHolder.get();//十进制
-    long slot = Math.abs(hashCode % ShardingUtil.SUM_SLOT);//分片序号
-    UserContextHolder.slotHolder.set(slot);
     for (String databaseName : databaseNames) {
       //ds0 ds1 ... ds4
-      if (databaseName.endsWith(String.valueOf(slot / ShardingUtil.TBL_CNT))) {
+      if (databaseName.endsWith(String.valueOf(calSlot(preciseShardingValue) / ShardingUtil.TBL_CNT))) {
         return databaseName;
         //ds3
       }
     }
-    throw new IllegalArgumentException("没有找到库"+preciseShardingValue.toString());
+    throw new IllegalArgumentException("没有找到库" + preciseShardingValue.toString());
   }
 }

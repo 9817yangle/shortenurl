@@ -1,7 +1,6 @@
 package com.conductor.shortenurl.service.impl;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.conductor.shortenurl.context.UserContextHolder;
 import com.conductor.shortenurl.entity.UrlMapping;
 import com.conductor.shortenurl.repository.UrlRepository;
 import com.conductor.shortenurl.service.UrlService;
@@ -24,7 +23,6 @@ public class UrlServiceImpl implements UrlService {
   @Override
   public String generateShortUrl(String longUrl) {
     long hashCode = HashUtil.murmurHashStirng(longUrl);//十进制
-    UserContextHolder.hashCodeHolder.set(hashCode);//缓存hashcode
     String shortUrl = HashUtil.convertDecToBase62(hashCode);//6位的值
     urlRepository.saveUrlMapping(new UrlMapping(shortUrl, longUrl));
     return shortUrl;
@@ -37,7 +35,7 @@ public class UrlServiceImpl implements UrlService {
 
   @Override
   public String getLongUrlByShortUrl(String shortUrl) {
-    return null;
+    return urlRepository.getLongUrlByShortUrl(shortUrl);
   }
 
 
