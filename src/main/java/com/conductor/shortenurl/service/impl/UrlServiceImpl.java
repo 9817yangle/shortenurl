@@ -5,6 +5,8 @@ import com.conductor.shortenurl.entity.UrlMapping;
 import com.conductor.shortenurl.repository.UrlRepository;
 import com.conductor.shortenurl.service.UrlService;
 import com.conductor.shortenurl.util.HashUtil;
+import javax.annotation.Resource;
+import org.redisson.api.RBloomFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,10 @@ import org.springframework.stereotype.Service;
 public class UrlServiceImpl implements UrlService {
 
   @Autowired
-  UrlRepository urlRepository;
+  private UrlRepository urlRepository;
+
+  @Resource
+  private RBloomFilter<String> urlBloomFilter;
 
 
   @Override
