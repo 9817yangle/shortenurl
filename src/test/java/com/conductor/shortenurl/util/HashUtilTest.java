@@ -3,6 +3,7 @@ package com.conductor.shortenurl.util;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.conductor.shortenurl.context.UserContextHolder;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 
 /*
@@ -20,5 +21,12 @@ class HashUtilTest {
     assertTrue("4KpMst".equals(HashUtil.convertDecToBase62(hashCode)));
     long value = 100L << 26;
     System.out.println(value);
+  }
+
+  @Test
+  public void generateUrl() {
+    Faker faker = new Faker();
+
+    System.out.println(faker.internet().url() + "/" + faker.number().randomNumber());
   }
 }
