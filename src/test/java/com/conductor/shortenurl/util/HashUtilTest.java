@@ -26,7 +26,6 @@ class HashUtilTest {
   @Test
   public void generateUrl() {
     Faker faker = new Faker();
-
     System.out.println(faker.internet().url() + "/" + faker.number().randomNumber());
   }
 }
