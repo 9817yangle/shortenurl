@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.conductor.shortenurl.context.UserContextHolder;
 import com.github.javafaker.Faker;
+import java.util.StringTokenizer;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 /*
@@ -27,5 +29,11 @@ class HashUtilTest {
   public void generateUrl() {
     Faker faker = new Faker();
     System.out.println(faker.internet().url() + "/" + faker.number().randomNumber());
+  }
+
+  @Test
+  public void testSubStr() {
+    String str = "ds45";
+    System.out.println(str.substring(2, str.length()));
   }
 }
