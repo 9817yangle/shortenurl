@@ -45,7 +45,7 @@ public class UrlServiceImpl implements UrlService {
 
     long hashCode = HashUtil.murmurHashStirng(longUrl);//十进制
     String shortUrl = HashUtil.convertDecToBase62(hashCode);//6位的值
-    if (urlBloomFilter.contains(shortUrl)) {
+    if (urlBloomFilter.contains(longUrl)) {
       //不确定是不是已经处理过该URL,查一下缓存，如果缓存中存在则直接返回
       String cacheUrl = redisTemplate.opsForValue().get(shortUrl);
       if (StringUtils.equals(cacheUrl, longUrl)) {
